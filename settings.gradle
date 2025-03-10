@@ -1,0 +1,3 @@
+include ':SSffmpegVideoOperation'
+include ':app'
+rootProject.name = "FFMPEG Video Operation"
