@@ -6,6 +6,7 @@ import android.util.Log
 import com.arthenica.ffmpegkit.FFmpegKit
 import com.arthenica.ffmpegkit.FFmpegKitConfig
 import com.arthenica.ffmpegkit.ReturnCode
+import java.io.File
 import java.util.concurrent.CyclicBarrier
 
 /**
@@ -72,7 +73,7 @@ class CallBackOfQuery {
         )
 
 
-        val commandString = commandArray.joinToString(" ")
+        val commandString = query.joinToString(" ")
 
         val session = FFmpegKit.execute(commandString)
         session.output

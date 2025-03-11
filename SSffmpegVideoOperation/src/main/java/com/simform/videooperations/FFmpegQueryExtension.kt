@@ -140,7 +140,7 @@ public class FFmpegQueryExtension {
         for (i in 0 until paths.size) {
             //for input
             inputs.add("-i")
-            inputs.add(paths[i].filePath)
+            inputs.add(paths[i].filePath.replace(" ", "\\ "))
 
             //for video setting with width and height
             query = query?.trim()
@@ -154,6 +154,18 @@ public class FFmpegQueryExtension {
                 "[" + i + "v][" + i + ":a]"
             }
         }
+//        query
+//
+//         val commandArray = arrayOf(
+//            "-i", "/storage/emulated/0/Download/VideoDownloader/tikto.mp4",
+//            "-i", "/storage/emulated/0/Download/tiktok_com_copy.mp4",
+//            "-f", "lavfi", "-t", "0.1", "-i", "anullsrc",
+//            "-filter_complex", "[0:v]scale=512x512,setdar=1:1[v0];[1:v]scale=512x512,setdar=1:1[v1];[v0][0:a][v1][1:a]concat=n=2:v=1:a=1[outv][outa]",
+//            "-map", "[outv]", "-map", "[outa]",
+//            "-preset", "ultrafast",
+//            "/storage/emulated/0/Android/data/com.simform.videoimageeditor/files/Output/Output_fixed.mp4"
+//        )
+
         return getResult(inputs, query, queryAudio, paths, output)
     }
 
@@ -166,11 +178,11 @@ public class FFmpegQueryExtension {
             add("-i")
             add("anullsrc")
             add("-filter_complex")
-            add(query + queryAudio + "concat=n=" + paths.size + ":v=1:a=1 [v][a]")
+            add(query + queryAudio + "concat=n=" + paths.size + ":v=1:a=1[outv][outa]")
             add("-map")
-            add("[v]")
+            add("[outv]")
             add("-map")
-            add("[a]")
+            add("[outa]")
             add("-preset")
             add("ultrafast")
             add(output)
